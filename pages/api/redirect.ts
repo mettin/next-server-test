@@ -6,7 +6,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const {miro, userId} = initMiro(req, res);
+  const {miro} = initMiro(req, res);
 
   // Make sure the code is in query parameters
   if (typeof req.query.code !== 'string') {
@@ -15,6 +15,6 @@ export default async function handler(
     return;
   }
 
-  await miro.exchangeCodeForAccessToken(userId || '', req.query.code);
+  await miro.exchangeCodeForAccessToken('', req.query.code);
   res.redirect('/');
 }

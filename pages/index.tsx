@@ -7,10 +7,11 @@ import congratulations from '../public/congratulations.png';
 
 export const getServerSideProps: GetServerSideProps =
   async function getServerSideProps({req}) {
-    const {userId, miro} = initMiro(req);
+    const { miro} = initMiro(req);
+    
 
     // redirect to auth url if user has not authorized the app
-    if (!userId || !(await miro.isAuthorized(userId))) {
+    if (!(await miro.isAuthorized(''))) {
       return {
         redirect: {
           destination: miro.getAuthUrl(),
@@ -19,7 +20,7 @@ export const getServerSideProps: GetServerSideProps =
       };
     }
 
-    const api = miro.as(userId);
+    const api = miro.as('');
 
     const boards: string[] = [];
 

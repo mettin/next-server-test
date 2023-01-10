@@ -24,12 +24,13 @@ export default function initMiro(
         get: () => {
           // Load state (tokens) from a cookie if it's set
           try {
+            console.log(request.cookies[tokensCookie])
             return JSON.parse(request.cookies[tokensCookie] || 'null');
           } catch (err) {
             return null;
           }
         },
-        set: (userId, state) => {
+        set: (_, state) => {
           if (!response)
             throw new Error(
               'initMiro should be invoked with a response object',
@@ -37,7 +38,6 @@ export default function initMiro(
           // store state (tokens) in the cookie
           response.setHeader('Set-Cookie', [
             getSerializedCookie(tokensCookie, JSON.stringify(state)),
-            getSerializedCookie(userIdCookie, userId.toString()),
           ]);
         },
       },
