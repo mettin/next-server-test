@@ -1,5 +1,6 @@
 import {Miro} from '@mirohq/miro-api';
 import {serialize} from 'cookie';
+import {RequestCookies} from 'next/dist/server/web/spec-extension/cookies'
 
 function getSerializedCookie(name: string, value: string) {
   return serialize(name, value, {
@@ -11,21 +12,20 @@ function getSerializedCookie(name: string, value: string) {
 }
 
 export default function initMiro(
-  request: {cookies: Record<string, undefined | string>},
+    cookies: any,
   response?: {setHeader(name: string, value: string[]): void},
 ) {
   const tokensCookie = 'miro_tokens';
   const userIdCookie = 'miro_user_id';
 
-  // setup a Miro instance that loads tokens from cookies
+  // set up a Miro instance that loads tokens from cookies
   return {
     miro: new Miro({
       storage: {
         get: () => {
           // Load state (tokens) from a cookie if it's set
           try {
-            console.log(request.cookies[tokensCookie])
-            return JSON.parse(request.cookies[tokensCookie] || 'null');
+            return JSON.parse(cookies.get(tokensCookie)?.value || '')
           } catch (err) {
             return null;
           }
@@ -42,6 +42,6 @@ export default function initMiro(
         },
       },
     }),
-    userId: request.cookies[userIdCookie] || '',
+    userId: cookies.get(userIdCookie) || '',
   };
 }

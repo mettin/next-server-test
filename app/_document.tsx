@@ -6,7 +6,7 @@ export default function Document() {
       <Head>
         <link
           rel="stylesheet"
-          href="https://unpkg.com/mirotone/dist/styles.css"
+          href="https://unpkg.com/mirotone^4/dist/styles.css"
         ></link>
         <script src="https://miro.com/app/static/sdk/v2/miro.js" />
       </Head>

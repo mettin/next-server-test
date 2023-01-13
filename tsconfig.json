@@ -24,12 +24,18 @@
     ],
     "allowJs": true,
     "incremental": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
   "include": [
     "src",
-    "pages",
-    "*.ts"
+    "app/pages",
+    "*.ts",
+    ".next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"
