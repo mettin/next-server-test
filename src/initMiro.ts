@@ -1,6 +1,5 @@
 import {Miro} from '@mirohq/miro-api';
 import {serialize} from 'cookie';
-import {RequestCookies} from 'next/dist/server/web/spec-extension/cookies'
 
 function getSerializedCookie(name: string, value: string) {
   return serialize(name, value, {

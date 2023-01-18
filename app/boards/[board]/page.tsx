@@ -4,8 +4,9 @@ import {WidgetItem} from '@mirohq/miro-api/dist/highlevel/Item'
 import {Params} from 'next/dist/shared/lib/router/utils/route-matcher'
 import {cookies} from 'next/headers'
 import {RequestCookies} from 'next/dist/server/web/spec-extension/cookies'
+import {ReadonlyRequestCookies} from 'next/dist/server/app-render'
 
-const getData = async (nextCookies: RequestCookies, boardId: string) => {
+const getData = async (nextCookies: RequestCookies | ReadonlyRequestCookies, boardId: string) => {
 	const {miro} = initMiro(nextCookies)
 
 	// redirect to auth url if user has not authorized the app
