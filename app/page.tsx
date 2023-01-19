@@ -2,7 +2,6 @@
 
 import initMiro from '../src/initMiro'
 import Image from 'next/image'
-import {redirect} from 'next/navigation'
 
 // @ts-ignore
 import congratulations from '../public/congratulations.png'
@@ -11,8 +10,9 @@ import Link from 'next/link'
 import * as moment from 'moment'
 import {cookies} from 'next/headers'
 import {RequestCookies} from 'next/dist/server/web/spec-extension/cookies'
+import {ReadonlyRequestCookies} from 'next/dist/server/app-render'
 
-type GetDataInterface = (cookies:RequestCookies) => Promise<{boards: Board[]} | {redirect: { destination: string; permanent: boolean}}>
+type GetDataInterface = (cookies: RequestCookies | ReadonlyRequestCookies) => Promise<{boards: Board[]} | {redirect: {destination: string; permanent: boolean}}>
 const getData: GetDataInterface = async (cookies) => {
 	const {miro} = initMiro(cookies)
 
@@ -21,7 +21,6 @@ const getData: GetDataInterface = async (cookies) => {
 		return {
 			redirect: {
 				destination: miro.getAuthUrl(),
-				permanent: false
 			}
 		}
 	}
@@ -41,10 +40,15 @@ const getData: GetDataInterface = async (cookies) => {
 
 export default async function Main() {
 	const nextCookies = cookies()
+console.log(nextCookies.getAll())
 	const data = await getData(nextCookies)
-
 	if ('redirect' in data) {
-		redirect(data.redirect.destination)
+		return (
+			<div>
+				<p>You are not logged in yet:</p>
+				<a href={data.redirect.destination}>Login to Miro</a>
+			</div>
+		)
 	}
 
 	moment().locale('nl')
