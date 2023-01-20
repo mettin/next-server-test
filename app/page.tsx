@@ -40,7 +40,6 @@ const getData: GetDataInterface = async (cookies) => {
 
 export default async function Main() {
 	const nextCookies = cookies()
-console.log(nextCookies.getAll())
 	const data = await getData(nextCookies)
 	if ('redirect' in data) {
 		return (

@@ -45,14 +45,7 @@ export default async function Page ({params}: Params) {
 
 	return (
 		<div>
-			<div className="grid">
-				<div className="cs1 ce10">
-					<h1>{board?.name} </h1>
-					<h2>Item ${params.itemId}</h2>
-				</div>
-				<Link className="cs11 ce12" href={`/boards/${decodeURIComponent(params.board)}`}>&lt; Back</Link>
-			</div>
-			{board?.viewLink && <><Link href={`https://miro.com/app/board/${decodeURIComponent(params.board)}/?moveToWidget=${params.itemId}`}>Open item on board</Link><br/></>}
+			<Link href={`https://miro.com/app/board/${decodeURIComponent(params.board)}/?moveToWidget=${params.itemId}`}>Open item on board</Link>
 			{['app_card', 'card'].includes(item.type) && <AppCard {...item.data}/>}
 			<pre>
 				{JSON.stringify(item, null,  2)}

@@ -43,11 +43,8 @@ export default async function Page({params}: Params) {
 
 		return (
 			<div>
-				<div className="grid">
-					<h1 className="cs1 ce10">{board?.name}</h1>
-					<Link className="cs11 ce12" href="/">&lt; Back</Link>
-				</div>
-				{board?.viewLink && <><Link href={board.viewLink}>Open board on Miro.com</Link><br/></>}
+				<Link href={board?.viewLink}>Open board on Miro.com</Link>
+
 				{items?.length
 					? <ul>
 						{items?.map(item => (
