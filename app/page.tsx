@@ -1,58 +1,25 @@
 'use server'
 
-import initMiro from '../src/initMiro'
 import Image from 'next/image'
+import Link from 'next/link'
+import {cookies} from 'next/headers'
+
+import moment from 'moment'
 
 // @ts-ignore
 import congratulations from '../public/congratulations.png'
-import {Board} from '@mirohq/miro-api'
-import Link from 'next/link'
-import * as moment from 'moment'
-import {cookies} from 'next/headers'
-import {RequestCookies} from 'next/dist/server/web/spec-extension/cookies'
-import {ReadonlyRequestCookies} from 'next/dist/server/app-render'
-
-type GetDataInterface = (cookies: RequestCookies | ReadonlyRequestCookies) => Promise<{boards: Board[]} | {redirect: {destination: string; permanent: boolean}}>
-const getData: GetDataInterface = async (cookies) => {
-	const {miro} = initMiro(cookies)
-
-	// redirect to auth url if user has not authorized the app
-	if (!(await miro.isAuthorized(''))) {
-		return {
-			redirect: {
-				destination: miro.getAuthUrl(),
-			}
-		}
-	}
-
-	const api = miro.as('')
-	const boards: Board[] = []
-
-	for await (const board of api.getAllBoards()) {
-		boards.push(board)
-	}
-
-	return {
-		boards
-	}
-}
-
+import {fetchBoards} from 'src/utils/fetch/boards'
 
 export default async function Main() {
 	const nextCookies = cookies()
-	const data = await getData(nextCookies)
-	if ('redirect' in data) {
-		return (
-			<div>
-				<p>You are not logged in yet:</p>
-				<a href={data.redirect.destination}>Login to Miro</a>
-			</div>
-		)
+
+	let boards
+	try {
+		boards = await fetchBoards(nextCookies)
+	} catch (e){
+		console.log('page error', e)
 	}
-
 	moment().locale('nl')
-
-	const {boards} = data
 
 	return (
 		<div className="grid wrapper">
@@ -68,7 +35,7 @@ export default async function Main() {
 				<p>This is a list of all the boards that your user has access to:</p>
 
 				<ul>
-					{boards?.map((board) => (
+					{!!boards.length && boards?.map((board) => (
 						<li key={board.id}>
 							<Link href={`/boards/${board.id}`}>
 								{board.name}

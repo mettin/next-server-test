@@ -1,27 +1,11 @@
-import initMiro from 'src/initMiro'
 import {cookies} from 'next/headers'
 import Link from 'next/link'
+import {fetchBoard} from 'src/utils/fetch/board'
 
-const getBoard = async (cookies, boardId) => {
-	const {miro} = initMiro(cookies)
-
-	// redirect to auth url if user has not authorized the app
-	if (!(await miro.isAuthorized(''))) {
-		return {
-			redirect: {
-				destination: miro.getAuthUrl(),
-			}
-		}
-	}
-
-	const api = miro.as('')
-
-	return await api.getBoard(boardId)
-}
 
 export default async function BoardLayout(props) {
 	const nextCookies = cookies()
-	const board = await getBoard(nextCookies, decodeURIComponent(props.params.board))
+	const board = await fetchBoard(nextCookies, decodeURIComponent(props.params.board))
 
 	return (
 		<div>
