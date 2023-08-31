@@ -1,38 +1,89 @@
-## Create a Miro app
+# Miro Digital Asset Manager
 
-### How to start locally
+This app shows how to implement a digital asset manager (DAM). Make the images, logos, and other assets you need available directly in a Miro board.
 
-1. [Sign in](https://miro.com/login/) to Miro, and then create a
-   [Developer team](https://developers.miro.com/docs/create-a-developer-team)
-   under your user account.
+# 👨🏻‍💻 App Demo
+https://github.com/bishopwm/next-server-test/assets/10800544/d3eccf44-7ae4-4393-9da4-c41e2ff5738e
 
-2. [Create an app in Miro](https://developers.miro.com/docs/build-your-first-hello-world-app#step-2-create-your-app-in-miro).
 
-- Click the **Create new app** button.
-- On the **Create new app** modal, give your app a name, assign it to your
-  Developer team, and then click **Create**.
 
-3. Configure the app:
 
-- In your account profile, go to **Your apps**, and then select the app you just
-  created to access its configuration page.
-- On the app configuration page, go to **App Credentials**, and copy the app
-  **Client ID** and **Client secret** values: you'll need to enter these values
-  in step 4 below.
-- Go to **App URL** and enter the following URL: `http://localhost:3000`
-- Go to **Redirect URI for OAuth2.0**, and enter the following redirect URL:
-  `http://localhost:3000/api/redirect/`
-- Click **Options**. \
-  From the drop-down menu select **Use this URI for SDK authorization**.
-- Lastly, go to **Permissions**, and select the following permissions:
-  - `board:read`
-  - `board:write`
 
-4. Open the [`.env.example`](.env.example) file, and enter the app client ID and client secret values that you saved at the beginning of step 3 above.
-5. Run `npm start` to start developing.
+# 📒 Table of Contents
+* [Included Features](#features)
+* [Tools and Technologies](#tools)
+* [Prerequisites](#prerequisites)
+* [Associated Developer Tutorial](#tutorial)
+* [Run the app locally](#run)
+* [Folder Structure](#folder)
+* [License](#license)
 
-When your server is up and running:
+# ⚙️ Included Features <a name="features"></a>
+* [Miro Web SDK](https://developers.miro.com/docs/web-sdk-reference)
+    * [drop event](https://developers.miro.com/docs/ui_boardui#drop-event) 
+    * [openPanel(options)](https://developers.miro.com/docs/ui_boardui#openpanel)
+    * [draggable elements](https://developers.miro.com/docs/add-drag-and-drop-to-your-app#add-draggable-elements-to-the-app-panel)
 
-- Go to [Miro.com](https://miro.com).
-- In your developer team, open a board.
-- To start your app, click the app icon in the app toolbar on the left.
+# 🛠️ Tools and Technologies <a name="tools"></a>
+* [React](https://react.dev/)
+* [TypeScript](https://www.typescriptlang.org/)
+* [Vite](https://vitejs.dev/)
+
+# ✅ Prerequisites <a name="prerequisites"></a>
+* You have a [Miro account](https://miro.com/signup/).
+* You're [signed in to Miro](https://miro.com/login/).
+* Your Miro account has a [Developer team](https://developers.miro.com/docs/create-a-developer-team).
+* Your development environment includes [Node.js 14.13](https://nodejs.org/en/download) or a later version.
+* All examples use `npm` as a package manager and `npx` as a package runner.
+
+# 📖 Associated Developer Tutorial <a name="tutorial"></a>
+> To view a more in depth developer tutorial
+of this app (including code explanations) see the [digital asset manager tutorial](https://developers.miro.com/docs/integrate-a-digital-asset-manager-in-miro) on Miro's Developer documentation.
+
+# 🏃🏽‍♂️ Run the app locally <a name="run"></a>
+
+1. Run `npm install` to install dependencies.
+2. Run `npm start` to start developing. \
+   Your URL should be similar to this example:
+   ```
+   http://localhost:3000
+   ```
+3. Open the [app manifest editor](https://developers.miro.com/docs/manually-create-an-app#step-2-configure-your-app-in-miro) by clicking **Edit in Manifest**. \
+   In the app manifest editor, configure the app as follows:
+   - [`sdkUri`](https://developers.miro.com/docs/app-manifest#sdkuri): assign `http://localhost:3000` as a value for this property. \
+     It defines the entry point of the app, and it corresponds to the URL of the server that the app runs on.
+   - [`scopes`](https://developers.miro.com/docs/app-manifest#scopes): add the permission scopes that users need to grant the app when they install it. \
+     To enable the app to read from and write to the board, add the following permissions:
+     - `boards:read`
+     - `boards:write`
+
+4. Go back to your app home page, and under the `Permissions` section, you will see a blue button that says `Install app and get OAuth token`. Click that button. Then click on `Add` as shown in the video below.
+
+> ⚠️ We recommend to install your app on a [developer team](https://developers.miro.com/docs/create-a-developer-team) while you are developing or testing apps.⚠️
+
+https://github.com/horeaporutiu/app-examples-template/assets/10428517/456108e8-7d9b-4067-94bb-e5511c736a23
+
+5. Go to your developer team, and open your boards.
+6. Click on the plus icon from the bottom section of your left sidebar. If you hover over it, it will say `More apps`.
+7. Search for your app `Digital Asset Manager` or whatever you chose to name it. Click on your app to use it, as shown in the video below.
+
+https://github.com/horeaporutiu/app-examples-template/assets/10428517/b23d9c4c-e785-43f9-a72e-fa5d82c7b019
+
+# 🗂️ Folder structure <a name="folder"></a>
+
+```
+.
+├── src
+│  └── styles
+│      └── style.css <-- CSS styles for the app.
+│  └── App.tsx <-- The main app. Contains structure for the sidebar when launched. This file also contains logic for fetching images from [The Noun Project](https://thenounproject.com/).
+│      main.tsx <-- Initializes app, and contains logic for dropping image onto the board.
+├── app.html <-- The app itself. This is loaded on the board inside the 'appContainer'.
+└── index.html <-- The app entry point. This is the value you assign to 'sdkUri' in the app manifest file.
+```
+
+# 🫱🏻‍🫲🏽 Contributing <a name="contributing"></a>
+If you want to contribute to this example, or any other Miro Open Source project, please review [Miro's contributing guide](https://github.com/miroapp/app-examples/blob/main/CONTRIBUTING.md).
+
+# 🪪 License <a name="license"></a>
+[MIT License](https://github.com/miroapp/app-examples/blob/main/LICENSE).
