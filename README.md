@@ -23,22 +23,31 @@ https://github.com/bishopwm/next-server-test/assets/10800544/d3eccf44-7ae4-4393-
     * [drop event](https://developers.miro.com/docs/ui_boardui#drop-event) 
     * [openPanel(options)](https://developers.miro.com/docs/ui_boardui#openpanel)
     * [draggable elements](https://developers.miro.com/docs/add-drag-and-drop-to-your-app#add-draggable-elements-to-the-app-panel)
+    * [Search and filter](https://developers.miro.com/docs/adding-search-and-filter-to-an-sdk-app)
+* [Mirotone.xyz](https://www.mirotone.xyz/)
 
+
+  
 # 🛠️ Tools and Technologies <a name="tools"></a>
 * [React](https://react.dev/)
 * [TypeScript](https://www.typescriptlang.org/)
 * [Vite](https://vitejs.dev/)
+* [React Router](https://reactrouter.com/en/main)
+* [Bynder API](https://developer-docs.bynder.com/api)
+* [Netlify](https://www.netlify.com/)
+* [Netlify Functions](https://docs.netlify.com/functions/overview/)
 
 # ✅ Prerequisites <a name="prerequisites"></a>
 * You have a [Miro account](https://miro.com/signup/).
 * You're [signed in to Miro](https://miro.com/login/).
 * Your Miro account has a [Developer team](https://developers.miro.com/docs/create-a-developer-team).
 * Your development environment includes [Node.js 14.13](https://nodejs.org/en/download) or a later version.
+* You have a Digital Asset Manager (such as [Bynder](https://www.bynder.com/)) and a [Netlify](https://www.netlify.com/) account.
 * All examples use `npm` as a package manager and `npx` as a package runner.
 
-# 📖 Associated Developer Tutorial <a name="tutorial"></a>
+# 📖 Associated Developer Tutorials <a name="tutorial"></a>
 > To view a more in depth developer tutorial
-of this app (including code explanations) see the [digital asset manager tutorial](https://developers.miro.com/docs/integrate-a-digital-asset-manager-in-miro) on Miro's Developer documentation.
+of this app (including code explanations) see the [digital asset manager tutorial](https://developers.miro.com/docs/integrate-a-digital-asset-manager-in-miro) and [search and filter tutorial](https://developers.miro.com/docs/adding-search-and-filter-to-an-sdk-app) on Miro's Developer documentation.
 
 # 🏃🏽‍♂️ Run the app locally <a name="run"></a>
 
@@ -73,12 +82,16 @@ https://github.com/horeaporutiu/app-examples-template/assets/10428517/b23d9c4c-e
 
 ```
 .
-├── src
+├── netlify/functions <-- contains netlify functions
+├── src 
+│  └── assets
+│  └── components
+│  └── panel
+│  └── utils
 │  └── styles
-│      └── style.css <-- CSS styles for the app.
-│  └── App.tsx <-- The main app. Contains structure for the sidebar when launched. This file also contains logic for fetching images from [The Noun Project](https://thenounproject.com/).
-│      main.tsx <-- Initializes app, and contains logic for dropping image onto the board.
-├── app.html <-- The app itself. This is loaded on the board inside the 'appContainer'.
+├── netlify.toml
+├── tscongif.json
+├── viteconfig.json
 └── index.html <-- The app entry point. This is the value you assign to 'sdkUri' in the app manifest file.
 ```
 
