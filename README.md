@@ -69,7 +69,7 @@ https://github.com/miroapp/app-examples/assets/10428517/1e6862de-8617-46ef-b265-
 
 5. Go to your developer team, and open your boards.
 6. Click on a supported item, such as a sticky note.
-7. From the context menu that appears, click on the plus icon If you hover over it, it will say `App actions`.
+7. From the context menu that appears, click on the plus icon. If you hover over it, it will say `App actions`.
 8. Select a custom action to send a notification to the Miro Board (see App Demo).
 
 # 🗂️ Folder structure <a name="folder"></a>
